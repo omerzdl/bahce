@@ -1,0 +1,32 @@
+========================================
+  GitHub'a Yükleme - Adım Adım Komutlar
+========================================
+
+1. Proje klasörüne gidin:
+   cd Desktop\Yeni klasör
+
+2. Git repository'sini başlatın (eğer yapılmadıysa):
+   git init
+
+3. Tüm dosyaları ekleyin:
+   git add .
+
+4. Commit yapın:
+   git commit -m "Initial commit: Dual-mode Bar & Meyhane website"
+
+5. GitHub repository'sini bağlayın:
+   git remote add origin https://github.com/omerzdl/bahce.git
+
+6. Branch'i main olarak ayarlayın:
+   git branch -M main
+
+7. GitHub'a push yapın:
+   git push -u origin main
+
+========================================
+NOT: Eğer "remote origin already exists" hatası alırsanız:
+   git remote remove origin
+   git remote add origin https://github.com/omerzdl/bahce.git
+
+========================================
+

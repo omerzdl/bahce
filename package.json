@@ -1,0 +1,22 @@
+{
+  "name": "bahce-bar-bergama",
+  "version": "1.0.0",
+  "description": "Bahçe Bar Bergama - Industrial Luxury & Curated Spirits Website",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx live-server --port=3000",
+    "start": "npx live-server --port=3000"
+  },
+  "keywords": [
+    "bar",
+    "restaurant",
+    "bergama",
+    "cocktail",
+    "mixology"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {}
+}
+

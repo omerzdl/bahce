@@ -1,0 +1,23 @@
+========================================
+  BAHCE BAR BERGAMA - SUNUCU BASLATMA
+========================================
+
+SORUN: Node.js yuklu degil!
+
+COZUM 1: Node.js Kur (Onerilen)
+--------------------------------
+1. https://nodejs.org/ adresinden Node.js LTS versiyonunu indir
+2. Kurulumu yap
+3. Bilgisayari yeniden baslat
+4. BASLA.bat dosyasina cift tikla
+
+COZUM 2: HTML Dosyasini Direkt Ac
+----------------------------------
+index.html dosyasina sag tikla > "Open with" > Chrome/Firefox
+
+NOT: Bazı ozellikler (menu filtreleme vb.) sunucu gerektirebilir.
+
+========================================
+Detayli talimatlar icin: NODEJS-KURULUM.md
+========================================
+

@@ -1,0 +1,106 @@
+/* Custom scrollbar for a cleaner look */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0B0A08;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #2A2623;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #D95D0F;
+}
+
+/* Custom Tailwind brand colors */
+.brand-orange {
+    color: #D95D0F;
+}
+
+.bg-brand-orange {
+    background-color: #D95D0F;
+}
+
+.border-brand-orange {
+    border-color: #D95D0F;
+}
+
+/* Meyhane brand colors - Teal/Gold */
+.brand-teal {
+    color: #14B8A6;
+}
+
+.bg-brand-teal {
+    background-color: #14B8A6;
+}
+
+.border-brand-teal {
+    border-color: #14B8A6;
+}
+
+.brand-gold {
+    color: #D4AF37;
+}
+
+.bg-brand-gold {
+    background-color: #D4AF37;
+}
+
+.border-brand-gold {
+    border-color: #D4AF37;
+}
+
+/* Hide scrollbar for menu tabs */
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* Gateway split screen styles */
+.gateway-side {
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.gateway-overlay {
+    z-index: 100;
+}
+
+#gateway-bar:hover,
+#gateway-meyhane:hover {
+    z-index: 10;
+}
+
+/* Zone specific styles */
+.zone-bar .brand-accent {
+    @apply text-brand-orange;
+}
+
+.zone-bar .bg-brand-accent {
+    @apply bg-brand-orange;
+}
+
+.zone-bar .border-brand-accent {
+    @apply border-brand-orange;
+}
+
+.zone-meyhane .brand-accent {
+    @apply text-brand-teal;
+}
+
+.zone-meyhane .bg-brand-accent {
+    @apply bg-brand-teal;
+}
+
+.zone-meyhane .border-brand-accent {
+    @apply border-brand-teal;
+}
+
