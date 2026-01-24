@@ -12,23 +12,44 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     
+    <!-- PapaParse for CSV Parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    
     <!-- Custom Styles -->
     <link rel="stylesheet" href="css/styles.css">
     
-    <!-- Tailwind Config for brand colors -->
+    <!-- Tailwind Config -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'brand-orange': '#D95D0F',
-                        'brand-teal': '#14B8A6',
-                        'brand-gold': '#D4AF37',
+                        'accent': '#FF8C00',
+                        'accent-hover': '#E67E00',
+                        'bar-bg': '#FAFAFA',
+                        'bar-text': '#18181b',
+                        'meyhane-bg': '#09090b',
+                        'meyhane-text': '#FAFAFA',
+                    },
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Lato', 'sans-serif'],
+                    },
+                    fontSize: {
+                        'fluid-xs': 'clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem)',
+                        'fluid-sm': 'clamp(0.875rem, 0.8rem + 0.375vw, 1rem)',
+                        'fluid-base': 'clamp(1rem, 0.95rem + 0.25vw, 1.125rem)',
+                        'fluid-lg': 'clamp(1.125rem, 1rem + 0.625vw, 1.5rem)',
+                        'fluid-xl': 'clamp(1.25rem, 1.1rem + 0.75vw, 1.75rem)',
+                        'fluid-2xl': 'clamp(1.5rem, 1.3rem + 1vw, 2rem)',
+                        'fluid-3xl': 'clamp(1.875rem, 1.5rem + 1.875vw, 2.5rem)',
+                        'fluid-4xl': 'clamp(2.25rem, 1.8rem + 2.25vw, 3rem)',
+                        'fluid-5xl': 'clamp(3rem, 2.5rem + 2.5vw, 4rem)',
                     }
                 }
             }
@@ -37,572 +58,267 @@
 </head>
 <body class="bg-[#0B0A08] text-stone-300 font-sans antialiased">
 
-    <!-- Gateway Overlay (Split Landing) -->
-    <div id="gateway-overlay" class="gateway-overlay fixed inset-0 w-full h-screen bg-[#0B0A08] z-[100] flex">
-        <!-- Left Side: Bahçe Bar -->
-        <div id="gateway-bar" class="gateway-side w-1/2 h-full relative overflow-hidden cursor-pointer group" data-zone="bar">
+    <!-- Gateway Overlay (Split Landing) - Mobile First -->
+    <div id="gateway-overlay" class="gateway-overlay fixed inset-0 w-full h-screen bg-[#0B0A08] z-[100] flex flex-col md:flex-row">
+        <!-- Bar Section: Top on Mobile, Left on Desktop -->
+        <div id="gateway-bar" class="gateway-side w-full md:w-1/2 h-[50vh] md:h-full relative overflow-hidden cursor-pointer group" data-zone="bar">
             <div class="absolute inset-0">
-                <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop" alt="Bar" class="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-500">
-                <div class="absolute inset-0 bg-gradient-to-b from-[#0B0A08]/90 via-[#0B0A08]/70 to-[#0B0A08]"></div>
+                <img src="/public/bar_hero.png" alt="Bar" class="w-full h-full object-cover md:group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-b from-[#0B0A08]/60 via-[#0B0A08]/40 to-[#0B0A08]/60"></div>
             </div>
-            <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-8">
-                <i data-lucide="martini" class="w-16 h-16 text-brand-orange mb-6 group-hover:scale-110 transition-transform"></i>
-                <h2 class="font-serif text-5xl md:text-6xl text-white tracking-tight mb-4">Bahçe Bar</h2>
-                <p class="text-stone-300 text-lg mb-8 max-w-md">Endüstriyel Lüks & Seçkin İçkiler</p>
-                <div class="px-6 py-3 border border-brand-orange/30 bg-black/40 backdrop-blur-sm">
-                    <span class="text-brand-orange text-sm font-semibold tracking-widest uppercase">Giriş Yap</span>
-                </div>
+            <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-6 md:px-8">
+                <img src="/public/images/logos/bar_logo.png" alt="Bahçe Cafe & Bar Logo" class="gateway-logo-circle mb-4 md:mb-6 md:group-hover:scale-110 transition-transform" loading="eager">
+                <h2 class="font-serif text-3xl md:text-5xl lg:text-6xl text-white font-bold tracking-tight mb-3 md:mb-4">Bahçe Cafe & Bar</h2>
+                <p class="text-white text-sm md:text-lg mb-6 md:mb-8 max-w-md font-bold">Bergama'nın kalbinde mixoloji sanatını deneyimleyin.</p>
+                <button class="glassmorphism-button gateway-button">
+                    <span class="relative z-10 font-normal">Giriş Yap</span>
+                </button>
             </div>
         </div>
 
-        <!-- Divider -->
-        <div class="absolute left-1/2 top-0 bottom-0 w-px bg-white/10 z-20 transform -translate-x-1/2"></div>
+        <!-- Divider: Horizontal on Mobile, Vertical on Desktop -->
+        <div class="absolute left-0 right-0 top-[50vh] md:left-1/2 md:top-0 md:right-auto md:bottom-0 h-px md:h-auto md:w-px bg-white/10 z-20 md:transform md:-translate-x-1/2"></div>
 
-        <!-- Right Side: Bahçe Meyhane -->
-        <div id="gateway-meyhane" class="gateway-side w-1/2 h-full relative overflow-hidden cursor-pointer group" data-zone="meyhane">
+        <!-- Meyhane Section: Bottom on Mobile, Right on Desktop -->
+        <div id="gateway-meyhane" class="gateway-side w-full md:w-1/2 h-[50vh] md:h-full relative overflow-hidden cursor-pointer group" data-zone="meyhane">
             <div class="absolute inset-0">
-                <img src="https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?q=80&w=2070&auto=format&fit=crop" alt="Meyhane" class="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-500">
-                <div class="absolute inset-0 bg-gradient-to-b from-[#1A1612]/90 via-[#1A1612]/70 to-[#1A1612]"></div>
+                <img src="/public/meyhane_hero.png" alt="Meyhane" class="w-full h-full object-cover md:group-hover:scale-105 transition-transform duration-500">
+                <div class="absolute inset-0 bg-gradient-to-b from-[#0B0A08]/60 via-[#0B0A08]/40 to-[#0B0A08]/60"></div>
             </div>
-            <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-8">
-                <i data-lucide="wine" class="w-16 h-16 text-brand-teal mb-6 group-hover:scale-110 transition-transform"></i>
-                <h2 class="font-serif text-5xl md:text-6xl text-white tracking-tight mb-4">Bahçe Meyhane</h2>
-                <p class="text-stone-300 text-lg mb-8 max-w-md">Geleneksel Türk Meyhanesi & Rakı</p>
-                <div class="px-6 py-3 border border-brand-teal/30 bg-black/40 backdrop-blur-sm">
-                    <span class="text-brand-teal text-sm font-semibold tracking-widest uppercase">Giriş Yap</span>
-                </div>
+            <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-6 md:px-8">
+                <img src="/public/images/logos/meyhane_logo.png" alt="Bahçe Bir Şehir Meyhanesi Logo" class="gateway-logo-circle mb-4 md:mb-6 md:group-hover:scale-110 transition-transform" loading="eager">
+                <h2 class="font-serif text-3xl md:text-5xl lg:text-6xl text-white font-bold tracking-tight mb-3 md:mb-4">Bahçe Bir Şehir Meyhanesi</h2>
+                <p class="text-white text-sm md:text-lg mb-6 md:mb-8 max-w-md font-bold">Bergama'nın kalbinde yeni nesil Türk meyhane kültürünü yaşayın.</p>
+                <button class="glassmorphism-button gateway-button">
+                    <span class="relative z-10 font-normal">Giriş Yap</span>
+                </button>
             </div>
         </div>
     </div>
 
     <!-- Bar Zone Content -->
     <div id="zone-bar" class="zone-bar hidden">
-        <!-- Navigation -->
-        <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-[#0B0A08]/80 backdrop-blur-md">
-            <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-                <a href="#" class="flex items-center gap-3 group">
-                    <i data-lucide="martini" class="w-6 h-6 text-brand-orange group-hover:rotate-12 transition-transform"></i>
-                    <span class="font-serif text-xl text-white tracking-tight font-medium">Bahçe Bar</span>
-                </a>
+        <!-- Orb Navigation - 3 Circles -->
+        <header class="absolute top-0 left-0 w-full z-50 p-4 md:p-6">
+            <div class="flex justify-between items-start max-w-7xl mx-auto">
+                
+                <!-- Left Orb: Zone Switcher -->
+                <button id="switch-to-meyhane" class="orb-button w-24 h-24 md:w-28 md:h-28 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex flex-col items-center justify-center gap-1 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-white/20">
+                    <i data-lucide="wine" class="w-6 h-6 md:w-7 md:h-7"></i>
+                    <span class="text-[10px] md:text-xs font-bold tracking-wide">Meyhane</span>
+                </button>
 
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center gap-8">
-                    <a href="#menu" class="text-xs font-medium tracking-widest text-stone-300 hover:text-white transition-colors uppercase">Menü</a>
-                    <a href="#reservations" class="text-xs font-medium tracking-widest text-stone-300 hover:text-white transition-colors uppercase">Rezervasyon</a>
-                    <a href="#events" class="text-xs font-medium tracking-widest text-stone-300 hover:text-white transition-colors uppercase">Etkinlikler</a>
-                    <a href="#about" class="text-xs font-medium tracking-widest text-stone-300 hover:text-white transition-colors uppercase">Hakkımızda</a>
+                <!-- Center Orb: Logo -->
+                <div class="w-28 h-28 md:w-32 md:h-32 -mt-2 rounded-full bg-black/20 backdrop-blur-sm flex items-center justify-center border border-white/10 shadow-2xl overflow-hidden">
+                    <img src="/public/images/logos/bar_logo.png" alt="Bahçe Cafe & Bar Logo" class="w-full h-full object-cover" loading="eager">
                 </div>
 
-                <div class="flex items-center gap-4">
-                    <button id="switch-to-meyhane" class="text-xs font-medium tracking-widest text-stone-400 hover:text-brand-orange transition-colors uppercase">
-                        Meyhaneye Geç
+                <!-- Right Orb: Menu Button -->
+                <div class="relative">
+                    <button id="bar-menu-toggle" class="orb-button w-24 h-24 md:w-28 md:h-28 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex flex-col items-center justify-center gap-1 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-white/20">
+                        <i data-lucide="menu" class="w-6 h-6 md:w-7 md:h-7"></i>
+                        <span class="text-[10px] md:text-xs font-bold tracking-wide">Menü</span>
                     </button>
-                    <button class="bg-brand-orange hover:bg-orange-700 text-white text-xs font-semibold tracking-widest uppercase px-6 py-3 transition-all duration-300">
-                        Masa Rezervasyonu
-                    </button>
+                    
+                    <!-- Dropdown Menu -->
+                    <div id="bar-menu-dropdown" class="hidden absolute top-full right-0 mt-4 w-48 glass-panel rounded-xl overflow-hidden shadow-2xl z-50">
+                        <div class="py-2">
+                            <!-- Menu items will be dynamically added -->
+                        </div>
+                    </div>
                 </div>
+
             </div>
-        </nav>
+        </header>
 
         <!-- Hero Section -->
-        <header class="relative w-full h-[85vh] flex items-center justify-center overflow-hidden">
+        <header class="relative w-full h-[60vh] md:h-[70vh] flex items-center justify-center overflow-hidden">
             <div class="absolute inset-0 z-0">
-                <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop" alt="Bar İç Mekanı" class="w-full h-full object-cover opacity-60">
-                <div class="absolute inset-0 bg-gradient-to-b from-[#0B0A08]/80 via-[#0B0A08]/40 to-[#0B0A08]"></div>
+                <img src="/public/bar_hero.png" alt="Bar İç Mekanı" class="w-full h-full object-cover object-center">
             </div>
 
-            <div class="relative z-10 text-center max-w-4xl px-6 mt-16">
-                <div class="inline-flex items-center gap-2 px-3 py-1 mb-8 border border-orange-500/30 bg-black/40 backdrop-blur-sm">
-                    <i data-lucide="star" class="w-3 h-3 text-brand-orange fill-brand-orange"></i>
-                    <span class="text-[10px] tracking-[0.2em] font-medium text-brand-orange uppercase">Kuruluş 2024</span>
-                </div>
+            <div class="relative z-10 text-center max-w-4xl px-6 md:px-8 mt-20 md:mt-24">
+                <div class="bg-black/50 backdrop-blur-sm rounded-3xl py-8 md:py-12 px-6 md:px-10">
+                    <h1 class="font-serif text-3xl md:text-5xl font-bold text-white tracking-tight mb-4 md:mb-6">
+                        İmza Kokteyller
+                    </h1>
 
-                <h1 class="font-serif text-5xl md:text-7xl lg:text-[5.5rem] leading-[0.9] text-white tracking-tight mb-6">
-                    Endüstriyel Lüks <br> 
-                    <span class="italic font-normal">&amp;</span> Seçkin İçkiler
-                </h1>
+                    <p class="text-sm md:text-base text-white font-bold max-w-2xl mx-auto mb-6 md:mb-8">
+                        Bergama'nın kalbinde mixoloji sanatını deneyimleyin.
+                    </p>
 
-                <p class="text-lg md:text-xl text-stone-300 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
-                    Bergama'nın kalbinde mixoloji sanatını deneyimleyin. <br class="hidden md:block">
-                    Mat siyahın eskitilmiş bronzla buluştuğu yer.
-                </p>
-
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <button class="w-full sm:w-auto bg-brand-orange hover:bg-orange-700 text-white text-xs font-semibold tracking-widest uppercase px-8 py-4 transition-all duration-300">
-                        Menüyü Görüntüle
-                    </button>
-                    <button class="w-full sm:w-auto border border-white/20 hover:border-white text-white text-xs font-semibold tracking-widest uppercase px-8 py-4 bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all duration-300">
-                        Masa Rezervasyonu
-                    </button>
+                    <div class="flex flex-col items-center">
+                        <a href="tel:05057977986" class="glassmorphism-button">
+                            <span class="relative z-10">Rezervasyon</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </header>
 
         <!-- Menu Tabs Section -->
-        <section id="menu" class="relative z-20 border-b border-white/10">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="flex overflow-x-auto gap-8 md:gap-12 scrollbar-hide">
-                    <button data-menu-tab="all" class="relative py-6 text-xs font-semibold tracking-widest text-white uppercase whitespace-nowrap">
-                        Tüm İçkiler
-                        <span class="absolute bottom-0 left-0 w-full h-[2px] bg-brand-orange"></span>
-                    </button>
-                    <button data-menu-tab="signatures" class="relative py-6 text-xs font-medium tracking-widest text-stone-500 hover:text-stone-300 uppercase whitespace-nowrap transition-colors">
-                        İmza İçkiler
-                    </button>
-                    <button data-menu-tab="beers" class="relative py-6 text-xs font-medium tracking-widest text-stone-500 hover:text-stone-300 uppercase whitespace-nowrap transition-colors">
-                        El Yapımı Biralar
-                    </button>
-                    <button data-menu-tab="spirits" class="relative py-6 text-xs font-medium tracking-widest text-stone-500 hover:text-stone-300 uppercase whitespace-nowrap transition-colors">
-                        Alkollü İçkiler
-                    </button>
-                    <button data-menu-tab="wine" class="relative py-6 text-xs font-medium tracking-widest text-stone-500 hover:text-stone-300 uppercase whitespace-nowrap transition-colors">
-                        Şarap Listesi
-                    </button>
+        <section id="menu" class="relative z-20 mt-10 md:mt-12 flex justify-center">
+            <div class="glass-radio-group">
+                <div id="bar-tabs" class="flex relative">
+                    <!-- Tabs will be dynamically rendered by MenuManager -->
+                    <div class="glider"></div>
                 </div>
             </div>
         </section>
 
         <!-- Grid Section -->
-        <section class="py-20 bg-[#0B0A08]">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-                    <h2 class="font-serif text-3xl md:text-4xl text-white tracking-tight">İmza Koleksiyonu</h2>
-                    <button class="flex items-center gap-2 text-xs font-medium tracking-wider text-stone-400 hover:text-brand-orange transition-colors uppercase">
-                        <i data-lucide="list-filter" class="w-4 h-4"></i>
-                        Malzemeye Göre Filtrele
-                    </button>
+        <section class="py-12 md:py-20 bg-[#0B0A08]">
+            <div class="max-w-7xl mx-auto px-4 md:px-6">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-12 gap-4 md:gap-6">
+                    <h2 id="bar-section-title" class="font-serif text-3xl md:text-4xl font-bold text-white tracking-tight">İmza Koleksiyonu</h2>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Card 1: The Old Smoker -->
-                    <div data-menu-item="signatures" class="group bg-[#141210] border border-white/5 hover:border-brand-orange/30 transition-all duration-500">
-                        <div class="relative h-64 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1597075687490-8f673c6c17f6?q=80&w=1887&auto=format&fit=crop" alt="Eski Tütüncü" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#141210] to-transparent"></div>
-                            <span class="absolute top-4 right-4 bg-black/80 backdrop-blur text-brand-orange border border-brand-orange/20 px-3 py-1 text-xs font-semibold font-mono">₺450</span>
-                        </div>
-                        <div class="p-6 pt-2">
-                            <h3 class="font-serif text-2xl text-white mb-3">Eski Tütüncü</h3>
-                            <p class="text-stone-400 text-sm leading-relaxed mb-6 font-light">
-                                Yıllandırılmış Bourbon, tütsülenmiş biberiye infüzyonu, angostura acıları, akçaağaç şurubu. Duman balonu ile servis edilir.
-                            </p>
-                            <div class="flex items-center gap-2 text-[10px] tracking-widest uppercase text-stone-500">
-                                <i data-lucide="flame" class="w-3.5 h-3.5"></i>
-                                Popüler Seçim
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 2: Bergama Gold -->
-                    <div data-menu-item="beers" class="group bg-[#141210] border border-white/5 hover:border-brand-orange/30 transition-all duration-500">
-                        <div class="relative h-64 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1608270586620-248524c67de9?q=80&w=2070&auto=format&fit=crop" alt="Bergama Altını" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#141210] to-transparent"></div>
-                            <span class="absolute top-4 right-4 bg-black/80 backdrop-blur text-brand-orange border border-brand-orange/20 px-3 py-1 text-xs font-semibold font-mono">₺225</span>
-                        </div>
-                        <div class="p-6 pt-2">
-                            <h3 class="font-serif text-2xl text-white mb-3">Bergama Altını</h3>
-                            <p class="text-stone-400 text-sm leading-relaxed mb-6 font-light">
-                                5km içinde üretilen yerel el yapımı pilsner. İnce bal notaları ve çiçeksi şerbetçiotu aroması ile ferah bir bitiş.
-                            </p>
-                            <div class="flex items-center gap-2 text-[10px] tracking-widest uppercase text-stone-500">
-                                <i data-lucide="badge-check" class="w-3.5 h-3.5"></i>
-                                Yerel Favori
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 3: Midnight Velvet -->
-                    <div data-menu-item="signatures" class="group bg-[#141210] border border-white/5 hover:border-brand-orange/30 transition-all duration-500">
-                        <div class="relative h-64 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?q=80&w=1964&auto=format&fit=crop" alt="Gece Yarısı Kadifesi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#141210] to-transparent"></div>
-                            <span class="absolute top-4 right-4 bg-black/80 backdrop-blur text-brand-orange border border-brand-orange/20 px-3 py-1 text-xs font-semibold font-mono">₺400</span>
-                        </div>
-                        <div class="p-6 pt-2">
-                            <h3 class="font-serif text-2xl text-white mb-3">Gece Yarısı Kadifesi</h3>
-                            <p class="text-stone-400 text-sm leading-relaxed mb-6 font-light">
-                                Soğuk demleme kahve likörü, premium votka, bitter çikolata rendesi ve bir tutam vanilya çekirdeği.
-                            </p>
-                            <div class="flex items-center gap-2 text-[10px] tracking-widest uppercase text-stone-500">
-                                <i data-lucide="moon" class="w-3.5 h-3.5"></i>
-                                Tatlı &amp; Güçlü
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 4: Aged Negroni -->
-                    <div data-menu-item="spirits" class="group bg-[#141210] border border-white/5 hover:border-brand-orange/30 transition-all duration-500">
-                        <div class="relative h-64 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?q=80&w=1965&auto=format&fit=crop" alt="Yıllandırılmış Negroni" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#141210] to-transparent"></div>
-                            <span class="absolute top-4 right-4 bg-black/80 backdrop-blur text-brand-orange border border-brand-orange/20 px-3 py-1 text-xs font-semibold font-mono">₺375</span>
-                        </div>
-                        <div class="p-6 pt-2">
-                            <h3 class="font-serif text-2xl text-white mb-3">Yıllandırılmış Negroni</h3>
-                            <p class="text-stone-400 text-sm leading-relaxed mb-6 font-light">
-                                Fıçıda yıllandırılmış Cin, tatlı vermut, Campari, kurutulmuş portakal dilimi. Meşe fıçıda 30 gün yıllandırılmış.
-                            </p>
-                            <div class="flex items-center gap-2 text-[10px] tracking-widest uppercase text-stone-500">
-                                <i data-lucide="glass-water" class="w-3.5 h-3.5"></i>
-                                Klasik
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 5: Iron Stout -->
-                    <div data-menu-item="beers" class="group bg-[#141210] border border-white/5 hover:border-brand-orange/30 transition-all duration-500">
-                        <div class="relative h-64 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1626252998634-142f146a49df?q=80&w=1974&auto=format&fit=crop" alt="Demir Stout" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#141210] to-transparent"></div>
-                            <span class="absolute top-4 right-4 bg-black/80 backdrop-blur text-brand-orange border border-brand-orange/20 px-3 py-1 text-xs font-semibold font-mono">₺250</span>
-                        </div>
-                        <div class="p-6 pt-2">
-                            <h3 class="font-serif text-2xl text-white mb-3">Demir Stout</h3>
-                            <p class="text-stone-400 text-sm leading-relaxed mb-6 font-light">
-                                Ağır kavrulmuş kahve notaları, bitter çikolata ve kremalı nitro dökümü ile imperial stout.
-                            </p>
-                            <div class="flex items-center gap-2 text-[10px] tracking-widest uppercase text-stone-500">
-                                <i data-lucide="anchor" class="w-3.5 h-3.5"></i>
-                                Zengin &amp; Kremalı
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 6: Amber Sour -->
-                    <div data-menu-item="signatures" class="group bg-[#141210] border border-white/5 hover:border-brand-orange/30 transition-all duration-500">
-                        <div class="relative h-64 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1616261545802-181155985012?q=80&w=1974&auto=format&fit=crop" alt="Kehribar Ekşi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#141210] to-transparent"></div>
-                            <span class="absolute top-4 right-4 bg-black/80 backdrop-blur text-brand-orange border border-brand-orange/20 px-3 py-1 text-xs font-semibold font-mono">₺350</span>
-                        </div>
-                        <div class="p-6 pt-2">
-                            <h3 class="font-serif text-2xl text-white mb-3">Kehribar Ekşi</h3>
-                            <p class="text-stone-400 text-sm leading-relaxed mb-6 font-light">
-                                Premium Amaretto, taze limon suyu, basit şurup, yumurta akı köpüğü ve bir tutam aromatik acı.
-                            </p>
-                            <div class="flex items-center gap-2 text-[10px] tracking-widest uppercase text-stone-500">
-                                <i data-lucide="zap" class="w-3.5 h-3.5"></i>
-                                Ekşi &amp; Ferahlatıcı
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-20 flex justify-center">
-                    <button class="flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-white border border-white/20 px-8 py-4 hover:bg-white/5 transition-all">
-                        Tam Menüyü Görüntüle
-                        <i data-lucide="arrow-down" class="w-4 h-4"></i>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Reservation CTA Section -->
-        <section id="reservations" class="py-24 bg-[#080706] relative border-t border-white/5">
-            <div class="max-w-3xl mx-auto px-6 text-center">
-                <div class="flex justify-center mb-6">
-                    <i data-lucide="armchair" class="w-8 h-8 text-brand-orange"></i>
-                </div>
-                <h2 class="font-serif text-4xl md:text-5xl text-white tracking-tight mb-6">Masanızı Rezerve Edin</h2>
-                <p class="text-lg text-stone-400 font-light mb-12">
-                    Unutulmaz bir lezzet ve atmosfer akşamı için bize katılın. İmza deneyimimiz için koltuklar sınırlıdır.
-                </p>
-                
-                <div class="flex flex-col md:flex-row items-center justify-center gap-10">
-                    <button class="bg-brand-orange hover:bg-orange-700 text-white text-xs font-semibold tracking-widest uppercase px-10 py-4 shadow-lg shadow-orange-900/20 transition-all duration-300">
-                        Şimdi Rezerve Et
-                    </button>
-                    <div class="text-left border-l border-white/10 pl-6">
-                        <h4 class="text-white text-xs font-bold tracking-wider uppercase mb-1">Çalışma Saatleri</h4>
-                        <p class="text-stone-500 text-sm">Pzt-Pzr: 18:00 - 02:00</p>
-                    </div>
+                <!-- Dynamic Menu Grid -->
+                <div id="bar-menu-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    <!-- Menu items will be dynamically rendered here -->
                 </div>
             </div>
         </section>
 
         <!-- Footer -->
-        <footer class="bg-[#050403] border-t border-white/5 py-10">
-            <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-                <div class="flex items-center gap-2 text-stone-500 text-sm">
-                    <i data-lucide="map-pin" class="w-4 h-4 text-brand-orange"></i>
-                    <span>Cumhuriyet Cd. No:12, Bergama</span>
+        <footer class="bg-[#050403] border-t border-white/5 py-8 md:py-10">
+            <div class="max-w-7xl mx-auto px-4 md:px-6 flex flex-col items-center gap-4">
+                <!-- Icons Row -->
+                <div class="flex items-center gap-6">
+                    <a href="https://www.instagram.com/bahcecafebar/" target="_blank" rel="noopener noreferrer" class="text-accent hover:text-accent-hover transition-colors" aria-label="Instagram">
+                        <i data-lucide="instagram" class="w-6 h-6"></i>
+                    </a>
+                    <a href="tel:05057977986" class="text-accent hover:text-accent-hover transition-colors" aria-label="Telefon">
+                        <i data-lucide="phone" class="w-6 h-6"></i>
+                    </a>
                 </div>
                 
-                <div class="flex items-center gap-8">
-                    <a href="#" class="text-stone-500 hover:text-white text-xs transition-colors">Instagram</a>
-                    <a href="#" class="text-stone-500 hover:text-white text-xs transition-colors">Facebook</a>
-                    <a href="#" class="text-stone-500 hover:text-white text-xs transition-colors">TripAdvisor</a>
-                </div>
+                <!-- Address Row -->
+                <a href="https://www.google.com/maps/dir//Bah%C3%A7e+Restoran,+Maltepe,+Atat%C3%BCrk+Blv.,+35700+Bergama%2F%C4%B0zmir/data=!4m6!4m5!1m1!4e2!1m2!1m1!1s0x14ba029d0efd76ad:0xdc60177cf4666257?sa=X&ved=1t:57443&ictx=111" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-stone-500 hover:text-accent text-sm transition-colors text-center">
+                    <i data-lucide="map-pin" class="w-4 h-4"></i>
+                    <span>Cumhuriyet Cd. No:12, Bergama</span>
+                </a>
             </div>
         </footer>
     </div>
 
     <!-- Meyhane Zone Content -->
     <div id="zone-meyhane" class="zone-meyhane hidden">
-        <!-- Navigation -->
-        <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-[#1A1612]/80 backdrop-blur-md">
-            <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-                <a href="#" class="flex items-center gap-3 group">
-                    <i data-lucide="wine" class="w-6 h-6 text-brand-teal group-hover:rotate-12 transition-transform"></i>
-                    <span class="font-serif text-xl text-white tracking-tight font-medium">Bahçe Meyhane</span>
-                </a>
+        <!-- Orb Navigation - 3 Circles -->
+        <header class="absolute top-0 left-0 w-full z-50 p-4 md:p-6">
+            <div class="flex justify-between items-start max-w-7xl mx-auto">
+                
+                <!-- Left Orb: Zone Switcher -->
+                <button id="switch-to-bar" class="orb-button w-24 h-24 md:w-28 md:h-28 rounded-full bg-black/50 backdrop-blur-md border border-white/20 flex flex-col items-center justify-center gap-1 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-black/60">
+                    <i data-lucide="martini" class="w-6 h-6 md:w-7 md:h-7"></i>
+                    <span class="text-[10px] md:text-xs font-bold tracking-wide">Cafe & Bar</span>
+                </button>
 
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center gap-8">
-                    <a href="#menu-meyhane" class="text-xs font-medium tracking-widest text-stone-300 hover:text-white transition-colors uppercase">Menü</a>
-                    <a href="#reservations-meyhane" class="text-xs font-medium tracking-widest text-stone-300 hover:text-white transition-colors uppercase">Rezervasyon</a>
-                    <a href="#events-meyhane" class="text-xs font-medium tracking-widest text-stone-300 hover:text-white transition-colors uppercase">Etkinlikler</a>
-                    <a href="#about-meyhane" class="text-xs font-medium tracking-widest text-stone-300 hover:text-white transition-colors uppercase">Hakkımızda</a>
+                <!-- Center Orb: Logo -->
+                <div class="w-28 h-28 md:w-32 md:h-32 -mt-2 rounded-full bg-black/20 backdrop-blur-sm flex items-center justify-center border border-white/10 shadow-2xl overflow-hidden">
+                    <img src="/public/images/logos/meyhane_logo.png" alt="Bahçe Bir Şehir Meyhanesi Logo" class="w-full h-full object-cover" loading="eager">
                 </div>
 
-                <div class="flex items-center gap-4">
-                    <button id="switch-to-bar" class="text-xs font-medium tracking-widest text-stone-400 hover:text-brand-teal transition-colors uppercase">
-                        Bara Geç
+                <!-- Right Orb: Menu Button -->
+                <div class="relative">
+                    <button id="meyhane-menu-toggle" class="orb-button w-24 h-24 md:w-28 md:h-28 rounded-full bg-black/50 backdrop-blur-md border border-white/20 flex flex-col items-center justify-center gap-1 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-black/60">
+                        <i data-lucide="menu" class="w-6 h-6 md:w-7 md:h-7"></i>
+                        <span class="text-[10px] md:text-xs font-bold tracking-wide">Menü</span>
                     </button>
-                    <button class="bg-brand-teal hover:bg-teal-700 text-white text-xs font-semibold tracking-widest uppercase px-6 py-3 transition-all duration-300">
-                        Masa Rezervasyonu
-                    </button>
+                    
+                    <!-- Dropdown Menu -->
+                    <div id="meyhane-menu-dropdown" class="hidden absolute top-full right-0 mt-4 w-48 glass-panel rounded-xl overflow-hidden shadow-2xl z-50">
+                        <div class="py-2">
+                            <!-- Menu items will be dynamically added -->
+                        </div>
+                    </div>
                 </div>
+
             </div>
-        </nav>
+        </header>
 
         <!-- Hero Section -->
-        <header class="relative w-full h-[85vh] flex items-center justify-center overflow-hidden">
+        <header class="relative w-full h-[60vh] md:h-[70vh] flex items-center justify-center overflow-hidden">
             <div class="absolute inset-0 z-0">
-                <img src="https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?q=80&w=2070&auto=format&fit=crop" alt="Meyhane İç Mekanı" class="w-full h-full object-cover opacity-60">
-                <div class="absolute inset-0 bg-gradient-to-b from-[#1A1612]/80 via-[#1A1612]/40 to-[#1A1612]"></div>
+                <img src="/public/meyhane_hero.png" alt="Meyhane Masası ve Rakı" class="w-full h-full object-cover object-center">
             </div>
 
-            <div class="relative z-10 text-center max-w-4xl px-6 mt-16">
-                <div class="inline-flex items-center gap-2 px-3 py-1 mb-8 border border-teal-500/30 bg-black/40 backdrop-blur-sm">
-                    <i data-lucide="star" class="w-3 h-3 text-brand-teal fill-brand-teal"></i>
-                    <span class="text-[10px] tracking-[0.2em] font-medium text-brand-teal uppercase">Kuruluş 2024</span>
-                </div>
+            <div class="relative z-10 text-center max-w-4xl px-6 md:px-8 mt-20 md:mt-24">
+                <div class="bg-white/50 backdrop-blur-sm rounded-3xl py-8 md:py-12 px-6 md:px-10">
+                    <h1 class="font-serif text-3xl md:text-5xl font-bold text-black tracking-tight mb-4 md:mb-6">
+                        Bir Şehir Meyhanesi
+                    </h1>
 
-                <h1 class="font-serif text-5xl md:text-7xl lg:text-[5.5rem] leading-[0.9] text-white tracking-tight mb-6">
-                    Geleneksel Lüks <br> 
-                    <span class="italic font-normal">&amp;</span> Rakı & Meze
-                </h1>
+                    <p class="text-sm md:text-base text-black font-bold max-w-2xl mx-auto mb-6 md:mb-8">
+                        Bergama'nın kalbinde yeni nesil Türk meyhane kültürünü yaşayın.
+                    </p>
 
-                <p class="text-lg md:text-xl text-stone-300 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
-                    Bergama'nın kalbinde geleneksel Türk meyhane kültürünü yaşayın. <br class="hidden md:block">
-                    Sıcak tonların altın dokunuşla buluştuğu yer.
-                </p>
-
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <button class="w-full sm:w-auto bg-brand-teal hover:bg-teal-700 text-white text-xs font-semibold tracking-widest uppercase px-8 py-4 transition-all duration-300">
-                        Menüyü Görüntüle
-                    </button>
-                    <button class="w-full sm:w-auto border border-white/20 hover:border-white text-white text-xs font-semibold tracking-widest uppercase px-8 py-4 bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all duration-300">
-                        Masa Rezervasyonu
-                    </button>
+                    <div class="flex flex-col items-center">
+                        <a href="tel:05057977986" class="glassmorphism-button">
+                            <span class="relative z-10">Rezervasyon</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </header>
 
         <!-- Menu Tabs Section -->
-        <section id="menu-meyhane" class="relative z-20 border-b border-white/10">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="flex overflow-x-auto gap-8 md:gap-12 scrollbar-hide">
-                    <button data-menu-tab-meyhane="all" class="relative py-6 text-xs font-semibold tracking-widest text-white uppercase whitespace-nowrap">
-                        Tümü
-                        <span class="absolute bottom-0 left-0 w-full h-[2px] bg-brand-teal"></span>
-                    </button>
-                    <button data-menu-tab-meyhane="cold" class="relative py-6 text-xs font-medium tracking-widest text-stone-500 hover:text-stone-300 uppercase whitespace-nowrap transition-colors">
-                        Soğuk Mezeler
-                    </button>
-                    <button data-menu-tab-meyhane="hot" class="relative py-6 text-xs font-medium tracking-widest text-stone-500 hover:text-stone-300 uppercase whitespace-nowrap transition-colors">
-                        Ara Sıcaklar
-                    </button>
-                    <button data-menu-tab-meyhane="main" class="relative py-6 text-xs font-medium tracking-widest text-stone-500 hover:text-stone-300 uppercase whitespace-nowrap transition-colors">
-                        Ana Yemekler
-                    </button>
-                    <button data-menu-tab-meyhane="raki" class="relative py-6 text-xs font-medium tracking-widest text-stone-500 hover:text-stone-300 uppercase whitespace-nowrap transition-colors">
-                        Rakı Çeşitleri
-                    </button>
+        <section id="menu-meyhane" class="relative z-20 mt-10 md:mt-12 flex justify-center">
+            <div class="glass-radio-group">
+                <div id="meyhane-tabs" class="flex relative">
+                    <!-- Tabs will be dynamically rendered by MenuManager -->
+                    <div class="glider"></div>
                 </div>
             </div>
         </section>
 
         <!-- Grid Section -->
-        <section class="py-20 bg-[#1A1612]">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-                    <h2 class="font-serif text-3xl md:text-4xl text-white tracking-tight">Geleneksel Lezzetler</h2>
-                    <button class="flex items-center gap-2 text-xs font-medium tracking-wider text-stone-400 hover:text-brand-teal transition-colors uppercase">
-                        <i data-lucide="list-filter" class="w-4 h-4"></i>
-                        Malzemeye Göre Filtrele
-                    </button>
+        <section class="py-12 md:py-20 bg-[#FAFAFA]">
+            <div class="max-w-7xl mx-auto px-4 md:px-6">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-12 gap-4 md:gap-6">
+                    <h2 id="meyhane-section-title" class="font-serif text-3xl md:text-4xl font-bold text-white tracking-tight">Geleneksel Lezzetler</h2>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Card 1: Humus -->
-                    <div data-menu-item-meyhane="cold" class="group bg-[#1F1B17] border border-white/5 hover:border-brand-teal/30 transition-all duration-500">
-                        <div class="relative h-64 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1571875257727-256c39da42af?q=80&w=1974&auto=format&fit=crop" alt="Humus" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#1F1B17] to-transparent"></div>
-                            <span class="absolute top-4 right-4 bg-black/80 backdrop-blur text-brand-teal border border-brand-teal/20 px-3 py-1 text-xs font-semibold font-mono">₺180</span>
-                        </div>
-                        <div class="p-6 pt-2">
-                            <h3 class="font-serif text-2xl text-white mb-3">Humus</h3>
-                            <p class="text-stone-400 text-sm leading-relaxed mb-6 font-light">
-                                Nohut püresi, tahin, zeytinyağı, limon suyu ve sarımsak. Geleneksel tarif ile hazırlanmış.
-                            </p>
-                            <div class="flex items-center gap-2 text-[10px] tracking-widest uppercase text-stone-500">
-                                <i data-lucide="leaf" class="w-3.5 h-3.5"></i>
-                                Vejetaryen
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 2: Haydari -->
-                    <div data-menu-item-meyhane="cold" class="group bg-[#1F1B17] border border-white/5 hover:border-brand-teal/30 transition-all duration-500">
-                        <div class="relative h-64 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1571875257727-256c39da42af?q=80&w=1974&auto=format&fit=crop" alt="Haydari" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#1F1B17] to-transparent"></div>
-                            <span class="absolute top-4 right-4 bg-black/80 backdrop-blur text-brand-teal border border-brand-teal/20 px-3 py-1 text-xs font-semibold font-mono">₺160</span>
-                        </div>
-                        <div class="p-6 pt-2">
-                            <h3 class="font-serif text-2xl text-white mb-3">Haydari</h3>
-                            <p class="text-stone-400 text-sm leading-relaxed mb-6 font-light">
-                                Yoğurt, sarımsak, dereotu ve zeytinyağı. Ferahlatıcı ve lezzetli bir başlangıç.
-                            </p>
-                            <div class="flex items-center gap-2 text-[10px] tracking-widest uppercase text-stone-500">
-                                <i data-lucide="leaf" class="w-3.5 h-3.5"></i>
-                                Vejetaryen
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 3: İçli Köfte -->
-                    <div data-menu-item-meyhane="hot" class="group bg-[#1F1B17] border border-white/5 hover:border-brand-teal/30 transition-all duration-500">
-                        <div class="relative h-64 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1571875257727-256c39da42af?q=80&w=1974&auto=format&fit=crop" alt="İçli Köfte" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#1F1B17] to-transparent"></div>
-                            <span class="absolute top-4 right-4 bg-black/80 backdrop-blur text-brand-teal border border-brand-teal/20 px-3 py-1 text-xs font-semibold font-mono">₺280</span>
-                        </div>
-                        <div class="p-6 pt-2">
-                            <h3 class="font-serif text-2xl text-white mb-3">İçli Köfte</h3>
-                            <p class="text-stone-400 text-sm leading-relaxed mb-6 font-light">
-                                Bulgur kabuğu içinde kıyma, soğan ve baharat karışımı. Geleneksel el yapımı.
-                            </p>
-                            <div class="flex items-center gap-2 text-[10px] tracking-widest uppercase text-stone-500">
-                                <i data-lucide="flame" class="w-3.5 h-3.5"></i>
-                                Sıcak
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 4: Yaprak Sarma -->
-                    <div data-menu-item-meyhane="hot" class="group bg-[#1F1B17] border border-white/5 hover:border-brand-teal/30 transition-all duration-500">
-                        <div class="relative h-64 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1571875257727-256c39da42af?q=80&w=1974&auto=format&fit=crop" alt="Yaprak Sarma" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#1F1B17] to-transparent"></div>
-                            <span class="absolute top-4 right-4 bg-black/80 backdrop-blur text-brand-teal border border-brand-teal/20 px-3 py-1 text-xs font-semibold font-mono">₺240</span>
-                        </div>
-                        <div class="p-6 pt-2">
-                            <h3 class="font-serif text-2xl text-white mb-3">Yaprak Sarma</h3>
-                            <p class="text-stone-400 text-sm leading-relaxed mb-6 font-light">
-                                Asma yaprağında pirinç ve baharat. Zeytinyağlı ve geleneksel tarif.
-                            </p>
-                            <div class="flex items-center gap-2 text-[10px] tracking-widest uppercase text-stone-500">
-                                <i data-lucide="leaf" class="w-3.5 h-3.5"></i>
-                                Vejetaryen
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 5: Tekirdağ Rakısı -->
-                    <div data-menu-item-meyhane="raki" class="group bg-[#1F1B17] border border-white/5 hover:border-brand-teal/30 transition-all duration-500">
-                        <div class="relative h-64 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?q=80&w=2070&auto=format&fit=crop" alt="Tekirdağ Rakısı" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#1F1B17] to-transparent"></div>
-                            <span class="absolute top-4 right-4 bg-black/80 backdrop-blur text-brand-teal border border-brand-teal/20 px-3 py-1 text-xs font-semibold font-mono">₺450</span>
-                        </div>
-                        <div class="p-6 pt-2">
-                            <h3 class="font-serif text-2xl text-white mb-3">Tekirdağ Rakısı</h3>
-                            <p class="text-stone-400 text-sm leading-relaxed mb-6 font-light">
-                                Klasik Türk rakısı, %45 alkol. Buz ve su ile servis edilir. Geleneksel meyhane deneyimi.
-                            </p>
-                            <div class="flex items-center gap-2 text-[10px] tracking-widest uppercase text-stone-500">
-                                <i data-lucide="wine" class="w-3.5 h-3.5"></i>
-                                Klasik
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 6: Adana Kebabı -->
-                    <div data-menu-item-meyhane="main" class="group bg-[#1F1B17] border border-white/5 hover:border-brand-teal/30 transition-all duration-500">
-                        <div class="relative h-64 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1571875257727-256c39da42af?q=80&w=1974&auto=format&fit=crop" alt="Adana Kebabı" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#1F1B17] to-transparent"></div>
-                            <span class="absolute top-4 right-4 bg-black/80 backdrop-blur text-brand-teal border border-brand-teal/20 px-3 py-1 text-xs font-semibold font-mono">₺380</span>
-                        </div>
-                        <div class="p-6 pt-2">
-                            <h3 class="font-serif text-2xl text-white mb-3">Adana Kebabı</h3>
-                            <p class="text-stone-400 text-sm leading-relaxed mb-6 font-light">
-                                Acılı kıyma kebabı, közlenmiş domates ve biber ile. Geleneksel Adana usulü.
-                            </p>
-                            <div class="flex items-center gap-2 text-[10px] tracking-widest uppercase text-stone-500">
-                                <i data-lucide="flame" class="w-3.5 h-3.5"></i>
-                                Acılı
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-20 flex justify-center">
-                    <button class="flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-white border border-white/20 px-8 py-4 hover:bg-white/5 transition-all">
-                        Tam Menüyü Görüntüle
-                        <i data-lucide="arrow-down" class="w-4 h-4"></i>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Reservation CTA Section -->
-        <section id="reservations-meyhane" class="py-24 bg-[#140F0A] relative border-t border-white/5">
-            <div class="max-w-3xl mx-auto px-6 text-center">
-                <div class="flex justify-center mb-6">
-                    <i data-lucide="armchair" class="w-8 h-8 text-brand-teal"></i>
-                </div>
-                <h2 class="font-serif text-4xl md:text-5xl text-white tracking-tight mb-6">Masanızı Rezerve Edin</h2>
-                <p class="text-lg text-stone-400 font-light mb-12">
-                    Unutulmaz bir geleneksel meyhane deneyimi için bize katılın. Sıcak atmosfer ve lezzetli mezeler sizi bekliyor.
-                </p>
-                
-                <div class="flex flex-col md:flex-row items-center justify-center gap-10">
-                    <button class="bg-brand-teal hover:bg-teal-700 text-white text-xs font-semibold tracking-widest uppercase px-10 py-4 shadow-lg shadow-teal-900/20 transition-all duration-300">
-                        Şimdi Rezerve Et
-                    </button>
-                    <div class="text-left border-l border-white/10 pl-6">
-                        <h4 class="text-white text-xs font-bold tracking-wider uppercase mb-1">Çalışma Saatleri</h4>
-                        <p class="text-stone-500 text-sm">Pzt-Pzr: 18:00 - 02:00</p>
-                    </div>
+                <!-- Dynamic Menu Grid -->
+                <div id="meyhane-menu-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    <!-- Menu items will be dynamically rendered here -->
                 </div>
             </div>
         </section>
 
         <!-- Footer -->
-        <footer class="bg-[#0F0B07] border-t border-white/5 py-10">
-            <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-                <div class="flex items-center gap-2 text-stone-500 text-sm">
-                    <i data-lucide="map-pin" class="w-4 h-4 text-brand-teal"></i>
-                    <span>Cumhuriyet Cd. No:12, Bergama</span>
+        <footer class="bg-[#F5F5F5] border-t border-black/5 py-8 md:py-10">
+            <div class="max-w-7xl mx-auto px-4 md:px-6 flex flex-col items-center gap-4">
+                <!-- Icons Row -->
+                <div class="flex items-center gap-6">
+                    <a href="https://www.instagram.com/bahcebirsehirmeyhanesi/" target="_blank" rel="noopener noreferrer" class="text-accent hover:text-accent-hover transition-colors" aria-label="Instagram">
+                        <i data-lucide="instagram" class="w-6 h-6"></i>
+                    </a>
+                    <a href="tel:05057977986" class="text-accent hover:text-accent-hover transition-colors" aria-label="Telefon">
+                        <i data-lucide="phone" class="w-6 h-6"></i>
+                    </a>
                 </div>
                 
-                <div class="flex items-center gap-8">
-                    <a href="#" class="text-stone-500 hover:text-white text-xs transition-colors">Instagram</a>
-                    <a href="#" class="text-stone-500 hover:text-white text-xs transition-colors">Facebook</a>
-                    <a href="#" class="text-stone-500 hover:text-white text-xs transition-colors">TripAdvisor</a>
-                </div>
+                <!-- Address Row -->
+                <a href="https://www.google.com/maps/dir//Bah%C3%A7e+Restoran,+Maltepe,+Atat%C3%BCrk+Blv.,+35700+Bergama%2F%C4%B0zmir/data=!4m6!4m5!1m1!4e2!1m2!1m1!1s0x14ba029d0efd76ad:0xdc60177cf4666257?sa=X&ved=1t:57443&ictx=111" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-stone-500 hover:text-accent text-sm transition-colors text-center">
+                    <i data-lucide="map-pin" class="w-4 h-4"></i>
+                    <span>Cumhuriyet Cd. No:12, Bergama</span>
+                </a>
             </div>
         </footer>
     </div>
 
-    <!-- JavaScript -->
-    <script src="js/main.js"></script>
+    <!-- Loading Overlay - Opaque Black -->
+    <div id="loading-overlay" class="fixed inset-0 z-[200] flex items-center justify-center hidden">
+        <div class="text-center">
+            <div class="w-12 h-12 border-4 border-white/10 border-t-accent rounded-full animate-spin mx-auto mb-4"></div>
+            <p class="text-white text-sm font-light tracking-wider">Yükleniyor...</p>
+        </div>
+    </div>
+
+    <!-- JavaScript - ES6 Modules -->
+    <script type="module" src="js/main.js"></script>
 
 </body>
 </html>
+

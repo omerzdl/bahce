@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bahçe - Endüstriyel Lüks Bar & Geleneksel Türk Meyhanesi. Bergama'nın kalbinde iki farklı deneyim.">
+    <title>Bahçe - Bar & Meyhane</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- PapaParse for CSV Parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'accent': '#FF8C00',
+                        'accent-hover': '#E67E00',
+                        'bar-bg': '#FAFAFA',
+                        'bar-text': '#18181b',
+                        'meyhane-bg': '#09090b',
+                        'meyhane-text': '#FAFAFA',
+                    },
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Lato', 'sans-serif'],
+                    },
+                    fontSize: {
+                        'fluid-xs': 'clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem)',
+                        'fluid-sm': 'clamp(0.875rem, 0.8rem + 0.375vw, 1rem)',
+                        'fluid-base': 'clamp(1rem, 0.95rem + 0.25vw, 1.125rem)',
+                        'fluid-lg': 'clamp(1.125rem, 1rem + 0.625vw, 1.5rem)',
+                        'fluid-xl': 'clamp(1.25rem, 1.1rem + 0.75vw, 1.75rem)',
+                        'fluid-2xl': 'clamp(1.5rem, 1.3rem + 1vw, 2rem)',
+                        'fluid-3xl': 'clamp(1.875rem, 1.5rem + 1.875vw, 2.5rem)',
+                        'fluid-4xl': 'clamp(2.25rem, 1.8rem + 2.25vw, 3rem)',
+                        'fluid-5xl': 'clamp(3rem, 2.5rem + 2.5vw, 4rem)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-[#0B0A08] text-stone-300 font-sans antialiased">
+
+    <!-- Gateway Overlay (Split Landing) - Mobile First -->
+    <div id="gateway-overlay" class="gateway-overlay fixed inset-0 w-full h-screen bg-[#0B0A08] z-[100] flex flex-col md:flex-row">
+        <!-- Bar Section: Top on Mobile, Left on Desktop -->
+        <div id="gateway-bar" class="gateway-side w-full md:w-1/2 h-[50vh] md:h-full relative overflow-hidden cursor-pointer group" data-zone="bar">
+            <div class="absolute inset-0">
+                <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop" alt="Bar" class="w-full h-full object-cover opacity-50 md:group-hover:opacity-70 transition-opacity duration-500">
+                <div class="absolute inset-0 bg-gradient-to-b from-[#0B0A08]/90 via-[#0B0A08]/70 to-[#0B0A08]"></div>
+            </div>
+            <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-6 md:px-8">
+                <i data-lucide="martini" class="w-12 h-12 md:w-16 md:h-16 text-accent mb-4 md:mb-6 md:group-hover:scale-110 transition-transform"></i>
+                <h2 class="font-serif text-3xl md:text-5xl lg:text-6xl text-white tracking-tight mb-3 md:mb-4">Bahçe Bar</h2>
+                <p class="text-stone-300 text-sm md:text-lg mb-6 md:mb-8 max-w-md">Endüstriyel Lüks & Seçkin İçkiler</p>
+                <div class="glassmorphism-button">
+                    <span class="relative z-10">Giriş Yap</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Divider: Horizontal on Mobile, Vertical on Desktop -->
+        <div class="absolute left-0 right-0 top-[50vh] md:left-1/2 md:top-0 md:right-auto md:bottom-0 h-px md:h-auto md:w-px bg-white/10 z-20 md:transform md:-translate-x-1/2"></div>
+
+        <!-- Meyhane Section: Bottom on Mobile, Right on Desktop -->
+        <div id="gateway-meyhane" class="gateway-side w-full md:w-1/2 h-[50vh] md:h-full relative overflow-hidden cursor-pointer group" data-zone="meyhane">
+            <div class="absolute inset-0">
+                <img src="https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?q=80&w=2070&auto=format&fit=crop" alt="Meyhane" class="w-full h-full object-cover opacity-50 md:group-hover:opacity-70 transition-opacity duration-500">
+                <div class="absolute inset-0 bg-gradient-to-b from-[#1A1612]/90 via-[#1A1612]/70 to-[#1A1612]"></div>
+            </div>
+            <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-6 md:px-8">
+                <i data-lucide="wine" class="w-12 h-12 md:w-16 md:h-16 text-accent mb-4 md:mb-6 md:group-hover:scale-110 transition-transform"></i>
+                <h2 class="font-serif text-3xl md:text-5xl lg:text-6xl text-white tracking-tight mb-3 md:mb-4">Bahçe Meyhane</h2>
+                <p class="text-stone-300 text-sm md:text-lg mb-6 md:mb-8 max-w-md">Geleneksel Türk Meyhanesi & Rakı</p>
+                <div class="glassmorphism-button">
+                    <span class="relative z-10">Giriş Yap</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bar Zone Content -->
+    <div id="zone-bar" class="zone-bar hidden">
+        <!-- Navigation - Desktop: Top, Mobile: Bottom Sticky -->
+        <nav class="fixed top-0 md:top-0 bottom-0 md:bottom-auto left-0 right-0 z-50 border-t md:border-t-0 md:border-b border-white/10 bg-[#0B0A08]/95 backdrop-blur-md">
+            <div class="max-w-7xl mx-auto px-4 md:px-6 h-16 md:h-20 flex items-center justify-between">
+                <a href="#" class="flex items-center gap-3 group">
+                    <img src="/public/images/logos/bar_logo.png" alt="Bahçe Bar Logo" class="h-8 md:h-12 w-auto object-contain" loading="lazy">
+                    <span class="hidden md:block font-serif text-xl text-white tracking-tight font-medium">Bahçe Bar</span>
+                </a>
+
+                <div class="flex items-center gap-2 md:gap-4">
+                    <button id="switch-to-meyhane" class="hidden md:block text-xs font-medium tracking-widest text-stone-400 hover:text-accent transition-colors uppercase">
+                        Meyhaneye Geç
+                    </button>
+                    <a href="tel:05057977986" class="bg-accent hover:bg-accent-hover text-white text-[10px] md:text-xs font-semibold tracking-widest uppercase px-3 md:px-6 py-2 md:py-3 transition-all duration-300 inline-block">
+                        Rezervasyon
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <header class="relative w-full h-[85vh] flex items-center justify-center overflow-hidden mt-16 md:mt-20">
+            <div class="absolute inset-0 z-0">
+                <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop" alt="Bar İç Mekanı" class="w-full h-full object-cover opacity-60">
+                <div class="absolute inset-0 bg-gradient-to-b from-[#0B0A08]/80 via-[#0B0A08]/40 to-[#0B0A08]"></div>
+            </div>
+
+            <div class="relative z-10 text-center max-w-4xl px-4 md:px-6">
+                <h1 class="font-serif text-fluid-4xl md:text-fluid-5xl leading-[0.9] text-white tracking-tight mb-4 md:mb-6">
+                    Endüstriyel Lüks <br> 
+                    <span class="italic font-normal">&</span> Seçkin İçkiler
+                </h1>
+
+                <p class="text-fluid-base md:text-fluid-lg text-stone-300 max-w-2xl mx-auto mb-8 md:mb-10 font-light leading-relaxed">
+                    Bergama'nın kalbinde mixoloji sanatını deneyimleyin.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
+                    <a href="#menu" class="glassmorphism-button w-full sm:w-auto">
+                        <span class="relative z-10">Menüyü Görüntüle</span>
+                    </a>
+                    <a href="tel:05057977986" class="glassmorphism-button w-full sm:w-auto">
+                        <span class="relative z-10">Masa Rezervasyonu</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Menu Tabs Section -->
+        <section id="menu" class="relative z-20 border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-4 md:px-6">
+                <div id="bar-tabs" class="flex overflow-x-auto gap-6 md:gap-8 lg:gap-12 scrollbar-hide">
+                    <!-- Tabs will be dynamically rendered by MenuManager -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Grid Section -->
+        <section class="py-12 md:py-20 bg-[#0B0A08] mb-16 md:mb-0">
+            <div class="max-w-7xl mx-auto px-4 md:px-6">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-12 gap-4 md:gap-6">
+                    <h2 class="font-serif text-fluid-3xl md:text-fluid-4xl text-white tracking-tight">İmza Koleksiyonu</h2>
+                </div>
+
+                <!-- Dynamic Menu Grid -->
+                <div id="bar-menu-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    <!-- Menu items will be dynamically rendered here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-[#050403] border-t border-white/5 py-8 md:py-10 mb-16 md:mb-0">
+            <div class="max-w-7xl mx-auto px-4 md:px-6 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
+                <a href="https://www.google.com/maps/dir//Bah%C3%A7e+Restoran,+Maltepe,+Atat%C3%BCrk+Blv.,+35700+Bergama%2F%C4%B0zmir/data=!4m6!4m5!1m1!4e2!1m2!1m1!1s0x14ba029d0efd76ad:0xdc60177cf4666257?sa=X&ved=1t:57443&ictx=111" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-stone-500 hover:text-accent text-fluid-sm transition-colors">
+                    <i data-lucide="map-pin" class="w-4 h-4"></i>
+                    <span>Cumhuriyet Cd. No:12, Bergama</span>
+                </a>
+                
+                <div class="flex items-center gap-6 md:gap-8">
+                    <a href="https://www.instagram.com/bahcecafebar/" target="_blank" rel="noopener noreferrer" class="text-stone-500 hover:text-white text-[10px] md:text-xs transition-colors">Instagram</a>
+                    <a href="tel:05057977986" class="text-stone-500 hover:text-white text-[10px] md:text-xs transition-colors">Bizi Arayın</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Meyhane Zone Content -->
+    <div id="zone-meyhane" class="zone-meyhane hidden">
+        <!-- Navigation - Desktop: Top, Mobile: Bottom Sticky -->
+        <nav class="fixed top-0 md:top-0 bottom-0 md:bottom-auto left-0 right-0 z-50 border-t md:border-t-0 md:border-b border-white/10 bg-[#1A1612]/95 backdrop-blur-md">
+            <div class="max-w-7xl mx-auto px-4 md:px-6 h-16 md:h-20 flex items-center justify-between">
+                <a href="#" class="flex items-center gap-3 group">
+                    <img src="/public/images/logos/meyhane_logo.png" alt="Bahçe Meyhane Logo" class="h-8 md:h-12 w-auto object-contain" loading="lazy">
+                    <span class="hidden md:block font-serif text-xl text-white tracking-tight font-medium">Bahçe Meyhane</span>
+                </a>
+
+                <div class="flex items-center gap-2 md:gap-4">
+                    <button id="switch-to-bar" class="hidden md:block text-xs font-medium tracking-widest text-stone-400 hover:text-accent transition-colors uppercase">
+                        Bara Geç
+                    </button>
+                    <a href="tel:05057977986" class="bg-accent hover:bg-accent-hover text-white text-[10px] md:text-xs font-semibold tracking-widest uppercase px-3 md:px-6 py-2 md:py-3 transition-all duration-300 inline-block">
+                        Rezervasyon
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <header class="relative w-full h-[85vh] flex items-center justify-center overflow-hidden mt-16 md:mt-20">
+            <div class="absolute inset-0 z-0">
+                <img src="https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?q=80&w=2070&auto=format&fit=crop" alt="Meyhane İç Mekanı" class="w-full h-full object-cover opacity-60">
+                <div class="absolute inset-0 bg-gradient-to-b from-[#1A1612]/80 via-[#1A1612]/40 to-[#1A1612]"></div>
+            </div>
+
+            <div class="relative z-10 text-center max-w-4xl px-4 md:px-6">
+                <h1 class="font-serif text-fluid-4xl md:text-fluid-5xl leading-[0.9] text-white tracking-tight mb-4 md:mb-6">
+                    Geleneksel Lüks <br> 
+                    <span class="italic font-normal">&</span> Rakı & Meze
+                </h1>
+
+                <p class="text-fluid-base md:text-fluid-lg text-stone-300 max-w-2xl mx-auto mb-8 md:mb-10 font-light leading-relaxed">
+                    Bergama'nın kalbinde geleneksel Türk meyhane kültürünü yaşayın.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
+                    <a href="#menu-meyhane" class="glassmorphism-button w-full sm:w-auto">
+                        <span class="relative z-10">Menüyü Görüntüle</span>
+                    </a>
+                    <a href="tel:05057977986" class="glassmorphism-button w-full sm:w-auto">
+                        <span class="relative z-10">Masa Rezervasyonu</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Menu Tabs Section -->
+        <section id="menu-meyhane" class="relative z-20 border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-4 md:px-6">
+                <div id="meyhane-tabs" class="flex overflow-x-auto gap-6 md:gap-8 lg:gap-12 scrollbar-hide">
+                    <!-- Tabs will be dynamically rendered by MenuManager -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Grid Section -->
+        <section class="py-12 md:py-20 bg-[#1A1612] mb-16 md:mb-0">
+            <div class="max-w-7xl mx-auto px-4 md:px-6">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-12 gap-4 md:gap-6">
+                    <h2 class="font-serif text-fluid-3xl md:text-fluid-4xl text-white tracking-tight">Geleneksel Lezzetler</h2>
+                </div>
+
+                <!-- Dynamic Menu Grid -->
+                <div id="meyhane-menu-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    <!-- Menu items will be dynamically rendered here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-[#0F0B07] border-t border-white/5 py-8 md:py-10 mb-16 md:mb-0">
+            <div class="max-w-7xl mx-auto px-4 md:px-6 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
+                <a href="https://www.google.com/maps/dir//Bah%C3%A7e+Restoran,+Maltepe,+Atat%C3%BCrk+Blv.,+35700+Bergama%2F%C4%B0zmir/data=!4m6!4m5!1m1!4e2!1m2!1m1!1s0x14ba029d0efd76ad:0xdc60177cf4666257?sa=X&ved=1t:57443&ictx=111" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-stone-500 hover:text-accent text-fluid-sm transition-colors">
+                    <i data-lucide="map-pin" class="w-4 h-4"></i>
+                    <span>Cumhuriyet Cd. No:12, Bergama</span>
+                </a>
+                
+                <div class="flex items-center gap-6 md:gap-8">
+                    <a href="https://www.instagram.com/bahcebirsehirmeyhanesi/" target="_blank" rel="noopener noreferrer" class="text-stone-500 hover:text-white text-[10px] md:text-xs transition-colors">Instagram</a>
+                    <a href="tel:05057977986" class="text-stone-500 hover:text-white text-[10px] md:text-xs transition-colors">Bizi Arayın</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JavaScript - ES6 Modules -->
+    <script type="module" src="js/main.js"></script>
+
+</body>
+</html>
+

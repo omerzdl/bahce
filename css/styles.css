@@ -1,60 +1,782 @@
-/* Custom scrollbar for a cleaner look */
+/* ============================================
+   BAHÇE BAR & MEYHANE - HOTFIX V2
+   Praksis Tech - Mobil UX & Tema Düzeltmeleri
+   ============================================ */
+
+/* ============================================
+   1. BASE & RESET
+   ============================================ */
+
+:root {
+    --accent: #FF8C00;
+    --accent-hover: #E67E00;
+    --light-bg: #F8F9FA;
+    --light-text: #1A1A1A;
+    --dark-bg: #0B0B0C;
+    --dark-text: #F8F9FA;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    background-color: var(--dark-bg);
+    color: var(--dark-text);
+    font-size: 12px; /* Minimum font size */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700; /* Bold */
+}
+
+/* ============================================
+   2. THEME SYSTEM - V2 FIX
+   ============================================ */
+
+/* Light Theme (Bar Zone) - Siyah arka plan */
+body[data-theme="light"] {
+    background-color: #0B0A08 !important;
+    color: #F8F9FA !important;
+}
+
+body[data-theme="light"] nav {
+    background-color: rgba(11, 10, 8, 0.98) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+body[data-theme="light"] .glass-panel {
+    background: rgba(0, 0, 0, 0.4) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+}
+
+body[data-theme="light"] h1,
+body[data-theme="light"] h2,
+body[data-theme="light"] h3 {
+    color: white !important;
+}
+
+body[data-theme="light"] p {
+    color: #D1D5DB !important;
+}
+
+/* Bar Hero Overlay - Tamamen şeffaf */
+body[data-theme="light"] header .hero-overlay {
+    background: transparent !important;
+    height: 50% !important; /* Yüksekliği %50'ye düşür */
+    bottom: 0 !important; /* Alt kısımdan başlat */
+    top: auto !important; /* Top'u devre dışı bırak */
+}
+
+/* Dark Theme (Meyhane Zone) - Beyaz arka plan */
+body[data-theme="dark"] {
+    background-color: #FAFAFA !important;
+    color: #1A1A1A !important;
+}
+
+body[data-theme="dark"] nav {
+    background-color: rgba(250, 250, 250, 0.98) !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+body[data-theme="dark"] .glass-panel {
+    background: rgba(255, 255, 255, 0.7) !important;
+    border-color: rgba(0, 0, 0, 0.15) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* ============================================
+   3. GLASSMORPHISM - V2 IMPROVED
+   ============================================ */
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px) saturate(180%) brightness(1.1);
+    -webkit-backdrop-filter: blur(20px) saturate(180%) brightness(1.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.37),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        0 0 40px rgba(255, 140, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 140, 0, 0.5);
+    box-shadow: 
+        0 16px 56px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 0 60px rgba(255, 140, 0, 0.3),
+        0 4px 20px rgba(255, 140, 0, 0.2);
+    transform: translateY(-4px) scale(1.01);
+}
+
+.glassmorphism-button {
+    position: relative;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(20px) saturate(180%) brightness(1.15);
+    -webkit-backdrop-filter: blur(20px) saturate(180%) brightness(1.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    box-shadow: 
+        0 4px 16px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 0 20px rgba(255, 140, 0, 0.1);
+}
+
+.glassmorphism-button:hover {
+    transform: translateY(-3px) scale(1.02);
+    background: rgba(255, 140, 0, 0.25);
+    border-color: rgba(255, 140, 0, 0.7);
+    box-shadow: 
+        0 12px 32px rgba(255, 140, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        0 0 40px rgba(255, 140, 0, 0.3);
+}
+
+/* Gateway butonları için turuncu efekt */
+.gateway-button:active {
+    transform: translateY(-3px) scale(1.02) !important;
+    background: rgba(255, 140, 0, 0.25) !important;
+    border-color: rgba(255, 140, 0, 0.7) !important;
+    box-shadow: 
+        0 12px 32px rgba(255, 140, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        0 0 40px rgba(255, 140, 0, 0.3) !important;
+}
+
+/* ============================================
+   4. ORB NAVIGATION - 3 CIRCLE BUTTONS
+   ============================================ */
+
+.orb-button {
+    position: relative;
+    cursor: pointer;
+    text-decoration: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.orb-button:hover:not(.menu-open) {
+    transform: translateY(-3px) scale(1.02);
+    background: rgba(255, 140, 0, 0.25) !important;
+    border-color: rgba(255, 140, 0, 0.7) !important;
+    box-shadow: 
+        0 12px 32px rgba(255, 140, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        0 0 40px rgba(255, 140, 0, 0.3) !important;
+}
+
+.orb-button:active {
+    transform: translateY(-3px) scale(1.02) !important;
+    background: rgba(255, 140, 0, 0.25) !important;
+    border-color: rgba(255, 140, 0, 0.7) !important;
+    box-shadow: 
+        0 12px 32px rgba(255, 140, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        0 0 40px rgba(255, 140, 0, 0.3) !important;
+}
+
+/* Menü açıkken turuncu efekt - yüksek öncelik */
+.orb-button.menu-open,
+.orb-button.menu-open:hover {
+    transform: translateY(-3px) scale(1.02) !important;
+    background: rgba(255, 140, 0, 0.25) !important;
+    border-color: rgba(255, 140, 0, 0.7) !important;
+    box-shadow: 
+        0 12px 32px rgba(255, 140, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        0 0 40px rgba(255, 140, 0, 0.3) !important;
+}
+
+/* Menü kapalıyken normal görünüm */
+.orb-button:not(.menu-open) {
+    transform: none;
+}
+
+/* Light theme adjustments for orbs - Siyah şeffaf arka plan */
+body[data-theme="light"] .orb-button {
+    background: rgba(0, 0, 0, 0.5);
+    border-color: transparent;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body[data-theme="light"] .orb-button:hover:not(.menu-open) {
+    transform: translateY(-3px) scale(1.02);
+    background: rgba(255, 140, 0, 0.25) !important;
+    border-color: rgba(255, 140, 0, 0.7) !important;
+    box-shadow: 
+        0 12px 32px rgba(255, 140, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        0 0 40px rgba(255, 140, 0, 0.3) !important;
+}
+
+/* Center logo orb - light theme */
+body[data-theme="light"] header > div > div:nth-child(2) {
+    background: rgba(0, 0, 0, 0.5);
+    border-color: transparent;
+}
+
+/* Dark theme (Meyhane) adjustments for orbs - Beyaz şeffaf arka plan */
+body[data-theme="dark"] .orb-button {
+    background: rgba(255, 255, 255, 0.5);
+    border-color: transparent;
+    color: #000000 !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body[data-theme="dark"] .orb-button:hover:not(.menu-open) {
+    transform: translateY(-3px) scale(1.02);
+    background: rgba(255, 140, 0, 0.25) !important;
+    border-color: rgba(255, 140, 0, 0.7) !important;
+    box-shadow: 
+        0 12px 32px rgba(255, 140, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        0 0 40px rgba(255, 140, 0, 0.3) !important;
+}
+
+body[data-theme="dark"] .orb-button svg {
+    color: #000000 !important;
+}
+
+body[data-theme="dark"] .orb-button span {
+    color: #000000 !important;
+}
+
+/* Center logo orb - dark theme */
+body[data-theme="dark"] header > div > div:nth-child(2) {
+    background: rgba(255, 255, 255, 0.5);
+    border-color: transparent;
+}
+
+/* Orb icons and text */
+.orb-button svg {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.orb-button span {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Zone switcher orb - beyaz renk */
+.orb-button:not([href]) {
+    color: white !important;
+}
+
+.orb-button:not([href]) svg {
+    color: white;
+}
+
+/* Light theme - beyaz renk korunur */
+body[data-theme="light"] .orb-button:not([href]) {
+    color: white !important;
+}
+
+/* ============================================
+   5. GLASS RADIO GROUP (TAB SYSTEM)
+   ============================================ */
+
+.glass-radio-group {
+    display: inline-flex;
+    position: relative;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 1rem;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    box-shadow:
+        inset 1px 1px 4px rgba(255, 255, 255, 0.2),
+        inset -1px -1px 6px rgba(0, 0, 0, 0.2),
+        0 4px 12px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    padding: 0.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-radio-group .flex {
+    position: relative;
+    z-index: 10;
+}
+
+.glass-radio-group button {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;
+    padding: 0.6rem 0.5rem;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: white;
+    position: relative;
+    z-index: 10;
+    transition: color 0.3s ease-in-out;
+    cursor: pointer;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.2;
+    border: none;
+    background: transparent;
+    text-transform: uppercase;
+}
+
+.glass-radio-group button:hover {
+    color: #FF8C00;
+}
+
+.glass-radio-group button.active {
+    color: #FF8C00;
+    font-weight: 700;
+}
+
+/* Light Theme (Bar) - Glass arka plan */
+body[data-theme="light"] .glass-radio-group {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+body[data-theme="light"] .glass-radio-group button {
+    color: white;
+}
+
+body[data-theme="light"] .glass-radio-group button:hover {
+    color: #FF8C00;
+}
+
+body[data-theme="light"] .glass-radio-group button.active {
+    color: #FF8C00;
+}
+
+/* Dark Theme (Meyhane) - Siyah arka plan */
+body[data-theme="dark"] .glass-radio-group {
+    background: rgba(0, 0, 0, 0.85);
+    border: 1px solid rgba(0, 0, 0, 0.9);
+}
+
+body[data-theme="dark"] .glass-radio-group button {
+    color: white;
+}
+
+body[data-theme="dark"] .glass-radio-group button:hover {
+    color: #FF8C00;
+}
+
+body[data-theme="dark"] .glass-radio-group button.active {
+    color: #FF8C00;
+}
+
+/* Meyhane text colors - siyah renkler */
+body[data-theme="dark"] h1,
+body[data-theme="dark"] h2,
+body[data-theme="dark"] h3 {
+    color: #000000 !important;
+}
+
+body[data-theme="dark"] p {
+    color: #000000 !important;
+}
+
+body[data-theme="dark"] .text-stone-300 {
+    color: #000000 !important;
+}
+
+body[data-theme="dark"] .text-stone-400 {
+    color: #000000 !important;
+}
+
+body[data-theme="dark"] .text-stone-500 {
+    color: #000000 !important;
+}
+
+body[data-theme="dark"] .text-white {
+    color: #000000 !important;
+}
+
+/* Rezervasyon butonu text rengi */
+body[data-theme="dark"] .glassmorphism-button {
+    color: #000000 !important;
+}
+
+body[data-theme="dark"] .glassmorphism-button span {
+    color: #000000 !important;
+}
+
+.glass-radio-group .glider {
+    display: none;
+}
+
+/* Tablet */
+@media (min-width: 481px) and (max-width: 768px) {
+    .glass-radio-group button {
+        min-width: 120px;
+        padding: 0.9rem 1.3rem;
+        font-size: 15px;
+    }
+}
+
+/* Desktop */
+@media (min-width: 769px) {
+    .glass-radio-group {
+        padding: 0.25rem;
+    }
+    
+    .glass-radio-group button {
+        min-width: 180px;
+        padding: 1.2rem 2rem;
+        font-size: 18px;
+        letter-spacing: 0.3px;
+        white-space: nowrap;
+    }
+    
+    .glass-radio-group .glider {
+        top: 0.25rem;
+        bottom: 0.25rem;
+        border-radius: 0.75rem;
+    }
+}
+
+/* Extra Small */
+@media (max-width: 360px) {
+    .glass-radio-group button {
+        padding: 0.5rem 0.4rem;
+        font-size: 10px;
+    }
+}
+
+/* Tab content animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tab-content {
+    animation: fadeIn 0.3s ease-in;
+}
+
+/* ============================================
+   6. DROPDOWN MENU
+   ============================================ */
+
+.dropdown-menu-item {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: white;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-menu-item:last-child {
+    border-bottom: none;
+}
+
+.dropdown-menu-item:hover {
+    background: rgba(255, 140, 0, 0.2);
+    color: #FF8C00;
+    padding-left: 1.25rem;
+}
+
+/* Light theme dropdown - Beyaz menü öğeleri */
+body[data-theme="light"] .dropdown-menu-item {
+    color: white;
+}
+
+body[data-theme="light"] .dropdown-menu-item:hover {
+    color: #FF8C00;
+    background: rgba(255, 140, 0, 0.2);
+}
+
+/* Dark theme (Meyhane) dropdown - Siyah menü öğeleri */
+body[data-theme="dark"] .dropdown-menu-item {
+    color: #000000;
+}
+
+body[data-theme="dark"] .dropdown-menu-item:hover {
+    color: #FF8C00;
+    background: rgba(255, 140, 0, 0.2);
+}
+
+/* ============================================
+   7. LOADING OVERLAY - OPAQUE BLACK
+   ============================================ */
+
+#loading-overlay {
+    background-color: #0B0B0C !important;
+    backdrop-filter: none !important;
+}
+
+#loading-overlay .animate-spin {
+    border-color: rgba(255, 255, 255, 0.1);
+    border-top-color: var(--accent);
+}
+
+#loading-overlay p {
+    color: white !important;
+    font-weight: 400;
+}
+
+/* ============================================
+   6. GATEWAY - MOBILE FIRST
+   ============================================ */
+
+.gateway-overlay {
+    z-index: 100;
+}
+
+.gateway-side {
+    position: relative;
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+/* Gateway Logo Sizing - Daire kırpma */
+.gateway-logo {
+    height: 4rem;
+    width: auto;
+    object-fit: contain;
+}
+
+.gateway-logo-circle {
+    height: 8rem;
+    width: 8rem;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+@media (min-width: 768px) {
+    .gateway-logo {
+        height: 6rem;
+    }
+    
+    .gateway-logo-circle {
+        height: 10rem;
+        width: 10rem;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+    }
+}
+
+/* Mobile: Vertical Stack */
+@media (max-width: 767px) {
+    .gateway-overlay {
+        flex-direction: column !important;
+    }
+    
+    .gateway-side {
+        width: 100% !important;
+        height: 50vh !important;
+    }
+    
+    .gateway-side:hover {
+        width: 100% !important;
+    }
+    
+    #gateway-bar {
+        order: 1;
+    }
+    
+    #gateway-meyhane {
+        order: 2;
+    }
+}
+
+/* Desktop: Horizontal Split */
+@media (min-width: 768px) {
+    .gateway-overlay {
+        flex-direction: row !important;
+    }
+    
+    .gateway-side {
+        width: 50% !important;
+        height: 100vh !important;
+    }
+    
+    #gateway-bar:hover {
+        width: 60% !important;
+        z-index: 10;
+    }
+    
+    #gateway-meyhane:hover {
+        width: 60% !important;
+        z-index: 10;
+    }
+    
+    .gateway-overlay:not(:hover) .gateway-side {
+        width: 50% !important;
+    }
+}
+
+/* ============================================
+   7. MOBILE SPACING - COMPACT
+   ============================================ */
+
+@media (max-width: 767px) {
+    section {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+    }
+    
+    header {
+        margin-top: 4rem !important;
+        height: 65vh !important;
+    }
+    
+    .mb-16 {
+        margin-bottom: 2rem !important;
+    }
+    
+    .mb-12 {
+        margin-bottom: 1.5rem !important;
+    }
+    
+    .mb-8 {
+        margin-bottom: 1rem !important;
+    }
+}
+
+/* ============================================
+   8. CARD IMPROVEMENTS
+   ============================================ */
+
+/* Card image height */
+@media (max-width: 767px) {
+    .glass-panel > div:first-child {
+        height: 12rem !important;
+    }
+}
+
+/* Better placeholder */
+.glass-panel img[src*="placeholder"] {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+    padding: 2rem;
+}
+
+/* Card spacing */
+.glass-panel > div:last-child {
+    padding: 1rem;
+}
+
+@media (min-width: 768px) {
+    .glass-panel > div:last-child {
+        padding: 1.5rem;
+    }
+}
+
+/* ============================================
+   9. ORB NAVIGATION - RESPONSIVE
+   ============================================ */
+
+/* Orb navigation stays at top, doesn't scroll */
+header.absolute {
+    pointer-events: none;
+}
+
+header.absolute > div {
+    pointer-events: auto;
+}
+
+/* Ensure orbs are always visible */
+@media (max-width: 767px) {
+    .orb-button {
+        width: 5rem !important;
+        height: 5rem !important;
+    }
+    
+    .orb-button svg {
+        width: 1.5rem !important;
+        height: 1.5rem !important;
+    }
+}
+
+/* ============================================
+   10. TYPOGRAPHY - MOBILE HIERARCHY
+   ============================================ */
+
+@media (max-width: 767px) {
+    h1 {
+        font-size: 2rem !important;
+        line-height: 1.1 !important;
+    }
+    
+    h2 {
+        font-size: 1.5rem !important;
+        line-height: 1.2 !important;
+    }
+    
+    h3 {
+        font-size: 1.125rem !important;
+    }
+    
+    p {
+        font-size: 0.875rem !important;
+        line-height: 1.6 !important;
+    }
+}
+
+@media (min-width: 768px) {
+    h1 {
+        font-size: 3.75rem !important;
+    }
+    
+    h2 {
+        font-size: 2.5rem !important;
+    }
+}
+
+/* ============================================
+   11. SCROLLBAR
+   ============================================ */
+
 ::-webkit-scrollbar {
     width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #0B0A08;
+    background: #1a1a1a;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #2A2623;
+    background: #444;
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #D95D0F;
+    background: var(--accent);
 }
 
-/* Custom Tailwind brand colors */
-.brand-orange {
-    color: #D95D0F;
-}
-
-.bg-brand-orange {
-    background-color: #D95D0F;
-}
-
-.border-brand-orange {
-    border-color: #D95D0F;
-}
-
-/* Meyhane brand colors - Teal/Gold */
-.brand-teal {
-    color: #14B8A6;
-}
-
-.bg-brand-teal {
-    background-color: #14B8A6;
-}
-
-.border-brand-teal {
-    border-color: #14B8A6;
-}
-
-.brand-gold {
-    color: #D4AF37;
-}
-
-.bg-brand-gold {
-    background-color: #D4AF37;
-}
-
-.border-brand-gold {
-    border-color: #D4AF37;
-}
-
-/* Hide scrollbar for menu tabs */
 .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -64,43 +786,44 @@
     display: none;
 }
 
-/* Gateway split screen styles */
-.gateway-side {
-    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
+/* ============================================
+   12. UTILITY CLASSES
+   ============================================ */
+
+.text-accent {
+    color: var(--accent) !important;
 }
 
-.gateway-overlay {
-    z-index: 100;
+.bg-accent {
+    background-color: var(--accent) !important;
 }
 
-#gateway-bar:hover,
-#gateway-meyhane:hover {
-    z-index: 10;
+.border-accent {
+    border-color: var(--accent) !important;
 }
 
-/* Zone specific styles */
-.zone-bar .brand-accent {
-    @apply text-brand-orange;
+/* Section title - always orange */
+#bar-section-title,
+#meyhane-section-title {
+    color: var(--accent) !important;
 }
 
-.zone-bar .bg-brand-accent {
-    @apply bg-brand-orange;
+/* Hero overlay helper class - Tamamen şeffaf */
+.hero-overlay {
+    background: transparent;
+    height: 50%; /* Yüksekliği %50'ye düşür */
+    bottom: 0; /* Alt kısımdan başlat */
+    top: auto; /* Top'u devre dışı bırak */
 }
 
-.zone-bar .border-brand-accent {
-    @apply border-brand-orange;
-}
+/* ============================================
+   13. PERFORMANCE
+   ============================================ */
 
-.zone-meyhane .brand-accent {
-    @apply text-brand-teal;
+.glass-panel,
+.glassmorphism-button,
+.gateway-side,
+.mobile-bottom-nav {
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
-
-.zone-meyhane .bg-brand-accent {
-    @apply bg-brand-teal;
-}
-
-.zone-meyhane .border-brand-accent {
-    @apply border-brand-teal;
-}
-
