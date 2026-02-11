@@ -26,7 +26,6 @@ bahce/
 ├── assets/                  # Görseller ve diğer dosyalar
 ├── package.json             # Proje bağımlılıkları
 ├── README.md                # Proje dokümantasyonu
-├── DUAL-MODE-GUIDE.md       # Dual-mode sistem kılavuzu
 └── .gitignore              # Git ignore dosyası
 ```
 
@@ -48,8 +47,6 @@ Proje iki farklı bölge içerir:
 - `?zone=bar` → Doğrudan Bar bölgesine gider
 - `?zone=meyhane` → Doğrudan Meyhane bölgesine gider
 - QR kodlar için kullanılabilir
-
-Detaylı bilgi için: [DUAL-MODE-GUIDE.md](DUAL-MODE-GUIDE.md)
 
 ## 🛠️ Kurulum
 

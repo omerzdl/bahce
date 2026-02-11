@@ -110,7 +110,7 @@ export class MenuManager {
      */
     processImagePath(imageValue, zone) {
         if (!imageValue) {
-            return '/public/images/products/placeholder.svg';
+            return 'public/images/products/placeholder.svg';
         }
         
         // HTTP/HTTPS ile başlıyorsa external URL
@@ -119,7 +119,7 @@ export class MenuManager {
         }
         
         // Dosya adıysa local path oluştur
-        return `/public/images/products/${zone}/${imageValue}`;
+        return `public/images/products/${zone}/${imageValue}`;
     }
 
     /**
@@ -260,7 +260,7 @@ export class MenuManager {
                     alt="${item.name}" 
                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     loading="lazy"
-                    onerror="this.src='/public/images/products/placeholder.svg'"
+                    onerror="this.src='public/images/products/placeholder.svg'"
                 >
                 <div class="absolute inset-0 bg-gradient-to-t from-[#141210] to-transparent"></div>
                 ${leftBadge}
